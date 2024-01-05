@@ -1,0 +1,59 @@
+plugins {
+    id 'application'
+    // https://graalvm.github.io/native-build-tools/latest/gradle-plugin.html
+    id 'org.graalvm.buildtools.native' version '0.9.28'
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    // compileOnly 'org.graalvm.sdk:nativeimage:23.1.0'
+}
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(21)
+    }
+}
+
+application {
+    mainClass = 'com.example.App'
+}
+
+compileJava {
+    options.compilerArgs += ['--enable-preview']
+}
+
+tasks.withType(JavaExec) {
+    jvmArgs += ['--enable-preview', '--enable-native-access=ALL-UNNAMED']
+}
+
+run {
+    outputs.upToDateWhen { false }
+}
+
+graalvmNative {
+    binaries {
+        main {
+            // Select the specific toolchain
+            javaLauncher = javaToolchains.launcherFor {
+                languageVersion = JavaLanguageVersion.of(21)
+                vendor = JvmVendorSpec.matching("Oracle Corporation")
+            }
+            // The name of the native image, defaults to the project name
+            imageName = 'app'
+            // Add verbose output, defaults to false
+            verbose = true
+            // Use the quick build mode ('-Ob') to speed up builds during development
+            quickBuild = true
+            // Arguments to the JVM running the native-image tool
+            jvmArgs.add("--enable-preview")
+            jvmArgs.add('--enable-native-access=ALL-UNNAMED')
+            // Arguments to the native-image tool at build time
+            // https://www.graalvm.org/latest/reference-manual/native-image/dynamic-features/foreign-interface/
+            buildArgs.add('--features=com.example.ForeignRegistrationFeature')
+        }
+    }
+}
