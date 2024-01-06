@@ -21,8 +21,10 @@ This repository contains an example of an Java application that uses JDK 21's Fo
     ./gradlew nativeRun
     ```
 ## Error during native-image compilation
+Submitted the issue to GraalVM GitHub project: https://github.com/oracle/graal/issues/8115
+
 ```
-hlloh@hlloh-mobl:~/ffm-graalvm$ ./gradlew nativeRun
+$ ./gradlew nativeRun
 
 > Task :app:generateResourcesConfigFile
 [native-image-plugin] Resources configuration written into /home/hlloh/ffm-graalvm/app/build/native/generated/generateResourcesConfigFile/resource-config.json
