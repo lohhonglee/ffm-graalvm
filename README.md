@@ -1,14 +1,14 @@
-# Java 21 Foreign Function & Memory (FFM) API + GraalVM
+# Java 21 GraalVM + Foreign Function & Memory (FFM) API
 
 This repository contains an example of an Java application that uses JDK 21's Foreign Function & Memory (FFM) API (third preview) being compiled into native application using GraalVM.
 
  - Environment
     - Ubuntu 22.04.3 LTS
-    - gcc 11.4.0
+    - GCC 11.4.0
     - GraalVM for JDK 21.0.1
     - Gradle 8.5
 
-- Compile `libhello.so` library with gcc
+- Compile `libhello.so` library
     ```
    gcc -o libhello.so -shared hello.c
     ```
@@ -21,7 +21,7 @@ This repository contains an example of an Java application that uses JDK 21's Fo
     ./gradlew nativeRun
     ```
 ## Error during native-image compilation
-Submitted the issue to GraalVM GitHub project: https://github.com/oracle/graal/issues/8115
+Submitted the issue to GraalVM GitHub project: https://github.com/oracle/graal/issues/8115, apparently **FFM API is not supported in GraalVM for JDK 21**.
 
 ```
 $ ./gradlew nativeRun
