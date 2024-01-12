@@ -27,7 +27,7 @@ compileJava {
 }
 
 tasks.withType(JavaExec) {
-    jvmArgs += ['--enable-preview', '--enable-native-access=ALL-UNNAMED']
+    jvmArgs += ["-Djava.library.path=${rootDir}", '--enable-preview', '--enable-native-access=ALL-UNNAMED']
 }
 
 run {
@@ -54,6 +54,8 @@ graalvmNative {
             // Arguments to the native-image tool at build time
             // https://www.graalvm.org/latest/reference-manual/native-image/dynamic-features/foreign-interface/
             buildArgs.add('--features=com.example.ForeignRegistrationFeature')
+            // Arguments to the built image during 'nativeRun' task
+            runtimeArgs.add("-Djava.library.path=${rootDir}")
         }
     }
 }

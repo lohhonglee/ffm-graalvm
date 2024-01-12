@@ -10,7 +10,7 @@ import java.lang.invoke.MethodHandle;
 
 public class App {
 
-    static void main(String[] args) throws Throwable {
+    public static void main(String[] args) throws Throwable {
 
         String name;
         if (args.length == 0) {
@@ -27,8 +27,8 @@ public class App {
             // Obtain an instance of the native linker
             Linker linker = Linker.nativeLinker();
 
-            // Load the library from an absolute path
-            System.load("/home/hlloh/ffm-graalvm/libhello.so");
+            // Load the shared library
+            System.loadLibrary("hello");
 
             // Locate the address of the C function
             SymbolLookup loaderLookup = SymbolLookup.loaderLookup();
